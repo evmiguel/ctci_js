@@ -78,6 +78,22 @@ class SinglyLinkedList extends LinkedList {
         newNode.next = old;
         this.size++;
     }
+
+    reverse() {
+        let previous = null;
+        let node = this.head;
+        let newHead = null;
+
+        while (node) {
+            let tmp = node.next;
+            node.next = previous;
+            previous = node;
+            node = tmp;
+            if (node !== null) this.head = node;
+        }
+
+        return this;
+    }
 }
 
 let sLL = new SinglyLinkedList();
@@ -85,6 +101,12 @@ sLL.add(10);
 sLL.add(20);
 sLL.add(30);
 sLL.add(40);
+sLL.printLinkedList();
+
+sLL.reverse();
+sLL.printLinkedList();
+
+sLL.reverse();
 sLL.printLinkedList();
 sLL.insertAt(15, 1);
 sLL.printLinkedList();
