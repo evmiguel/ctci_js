@@ -16,16 +16,6 @@ class LinkedList {
         this.size = 0;
     }
 
-    printLinkedList() {
-        let string = '';
-        let curr = this.head;
-        while (curr) {
-            string = string.concat(` ${curr.elem}`);
-            curr = curr.next;
-        }
-        console.log(string);
-    }
-
     get(idx) {
         if (idx > this.size) return -1;
         if (idx === 0) return this.head;
@@ -79,20 +69,73 @@ class SinglyLinkedList extends LinkedList {
         this.size++;
     }
 
-    reverse() {
+    delete(node) {
         let previous = null;
-        let node = this.head;
-        let newHead = null;
 
-        while (node) {
-            let tmp = node.next;
-            node.next = previous;
-            previous = node;
-            node = tmp;
-            if (node !== null) this.head = node;
+        let n = this.head;
+        if(node === this.head) {
+            this.head = node.next;
+            return;
         }
 
-        return this;
+        while (n !== node) {
+            previous = n;
+            n = n.next;
+        }
+
+        if (node.next !== null) {
+            let tmp = node.next;
+            node.next = null;
+            previous.next = tmp;
+        } else {
+            previous.next = null;
+        }
+
+        return;
+    }
+}
+
+// functions
+
+function reverseLinkedList(l) {
+    let previous = null;
+    let node = l.head;
+
+    while (node) {
+        let tmp = node.next;
+        node.next = previous;
+        previous = node;
+        node = tmp;
+        if (node !== null) l.head = node;
+    }
+
+    return l;
+}
+
+function printLinkedList(l) {
+    let string = '';
+    let curr = l.head;
+    while (curr) {
+        string = string.concat(` ${curr.elem}`);
+        curr = curr.next;
+    }
+    console.log(string);
+}
+
+function removeDupes(l) {
+    let p1 = l.head, p2;
+    while (p1) {
+        p2 = p1.next;
+        while (p2) {
+            if (p2.elem === p1.elem) {
+                let curr = p2;
+                p2 = curr.next;
+                l.delete(curr);
+            } else {
+                p2 = p2.next;
+            }
+        }
+        p1 = p1.next;
     }
 }
 
@@ -101,16 +144,38 @@ sLL.add(10);
 sLL.add(20);
 sLL.add(30);
 sLL.add(40);
-sLL.printLinkedList();
+printLinkedList(sLL);
 
-sLL.reverse();
-sLL.printLinkedList();
+printLinkedList(reverseLinkedList(sLL));
+reverseLinkedList(sLL)
 
-sLL.reverse();
-sLL.printLinkedList();
+printLinkedList(sLL);
 sLL.insertAt(15, 1);
-sLL.printLinkedList();
+printLinkedList(sLL);
 sLL.insertAt(5, 0);
-sLL.printLinkedList();
+printLinkedList(sLL);
 sLL.insertAt(35, 5);
-sLL.printLinkedList();
+printLinkedList(sLL);
+
+sLL.delete(sLL.head);
+printLinkedList(sLL);
+
+sLL.delete(sLL.head.next);
+printLinkedList(sLL);
+
+sLL.delete(sLL.head.next.next.next);
+printLinkedList(sLL);
+
+sLL.delete(sLL.head.next.next.next);
+printLinkedList(sLL);
+sLL.insertAt(40, 3);
+printLinkedList(sLL);
+
+removeDupes(sLL);
+printLinkedList(sLL);
+
+sLL.insertAt(40, 4);
+sLL.insertAt(30, 1);
+printLinkedList(sLL);
+removeDupes(sLL);
+printLinkedList(sLL);
