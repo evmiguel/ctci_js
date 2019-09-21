@@ -187,3 +187,17 @@ printLinkedList(sLL);
 
 // Get kth to last elem
 console.log(sLL.get(sLL.size-2).elem);
+
+let sLLChars = new SinglyLinkedList();
+sLLChars.add('a');
+sLLChars.add('b');
+sLLChars.add('c');
+sLLChars.add('d');
+sLLChars.add('e');
+
+printLinkedList(sLLChars);
+let c = sLLChars.head.next.next;
+// Delete middle node
+sLLChars.delete(c);
+printLinkedList(sLLChars);
+
