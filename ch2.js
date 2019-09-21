@@ -36,6 +36,7 @@ class SinglyLinkedList extends LinkedList {
     add(elem) {
         if(!this.head) {
             this.head = new Node(elem);
+            this.size++;
             return;
         }
 
@@ -67,6 +68,7 @@ class SinglyLinkedList extends LinkedList {
         if (oldPrev) oldPrev.next = newNode;
         newNode.next = old;
         this.size++;
+        return
     }
 
     delete(node) {
@@ -75,6 +77,7 @@ class SinglyLinkedList extends LinkedList {
         let n = this.head;
         if(node === this.head) {
             this.head = node.next;
+            this.size--;
             return;
         }
 
@@ -91,7 +94,8 @@ class SinglyLinkedList extends LinkedList {
             previous.next = null;
         }
 
-        return;
+        this.size--;
+        return
     }
 }
 
@@ -174,8 +178,12 @@ printLinkedList(sLL);
 removeDupes(sLL);
 printLinkedList(sLL);
 
+
 sLL.insertAt(40, 4);
 sLL.insertAt(30, 1);
 printLinkedList(sLL);
 removeDupes(sLL);
 printLinkedList(sLL);
+
+// Get kth to last elem
+console.log(sLL.get(sLL.size-2).elem);
