@@ -80,7 +80,52 @@ function getMatrixIslands(m) {
     return islands;
 }
 
+function getMatrixIslandsIterative(m) {
+    let islands = 0;
+
+    let rows = m.length;
+    let cols = m[0].length;
+    
+    for(let i=0; i<m.length; i++) {
+        for(let j=0; j<m[0].length; j++) {
+            if (m[i][j] === 1) {
+                checkAndMarkNeighborsIter(m,i,j, rows, cols);
+                islands++;
+            }
+        }
+    }
+    return islands;
+}
+
+function checkAndMarkNeighborsIter(m, i, j, rows, cols) {
+    let q = [];
+    q.push([i, j])
+    
+    while (q.length > 0) {
+        const [x, y] = q.pop();
+        let cell = m[x][y];
+        if (cell === 1) {
+            m[x][y] = -1;
+            pushToQueue(q, i, j-1, rows, cols);
+            pushToQueue(q, i, j+1, rows, cols);
+            pushToQueue(q, i+1, j, rows, cols);
+            pushToQueue(q, i-1, j, rows, cols);
+            console.log(q);
+        }
+    }
+}
+
+function pushToQueue(q,x,y, rows, cols) {
+    if (x >= 0 && x < rows && y >= 0 && y < cols) {
+        q.push([x,y]);
+    }
+}
+
 console.log(getMatrixIslands(m));
+let mIter = createMatrix(5, 5, vals);
+console.log(getMatrixIslandsIterative(mIter));
+printMatrix(mIter)
+
 let m2 = createMatrix(2, 2, [1,0,0,1]);
 printMatrix(m2)
 console.log(getMatrixIslands(m2))
