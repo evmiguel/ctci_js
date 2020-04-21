@@ -72,7 +72,46 @@ function mergesortJS(arr) {
 }
 
 
+function quicksort(arr, left, right){
+    if (arr.length > 1) {
+        const index = partition(arr, left, right);
+        if (left < index - 1) {
+            quicksort(arr, left, index-1);
+        } 
+    
+        if (index < right) {
+            quicksort(arr, index, right);
+        }
+    }
+    return arr;
+    function swap(arr, left, right) {
+        let tmp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = tmp;
+    }
+    function partition(arr, left, right) {
+        let pivot = arr[Math.floor((left+right)/2)];
+        while(left <= right) {
+            while(arr[left] < pivot) left++;
+            while(arr[right] > pivot) right--;
+            if (left <= right) {
+                swap(arr, left, right)
+                left++;
+                right--;
+            }
+        }
+        return left;
+    }
+}
+
+
 
 console.log(mergesort([3, 2, 7, 1, 12, 4]));
 console.log(mergesortJS([3, 2, 7, 1, 12, 4, 7, 3 ,2]));
+
+console.log(quicksort([3, 2, 7, 1, 12, 4], 0, 5));
+console.log(quicksort([3, 2, 7, 1, 12, 4, 7, 3 ,2], 0, 8));
+
+
+
 
