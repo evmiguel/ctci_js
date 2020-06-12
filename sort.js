@@ -19,7 +19,7 @@ function mergesort(arr) {
         let helperRight = mid+1;
         let curr = low;
 
-        while(helperLeft <= low && helperRight <= high) {
+        while(helperLeft <= mid && helperRight <= high) {
             if (helper[helperLeft] <= helper[helperRight]) {
                 arr[curr] = helper[helperLeft];
                 helperLeft++
